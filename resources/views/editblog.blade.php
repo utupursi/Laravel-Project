@@ -14,6 +14,13 @@ background-size:100%;
        width:300px;
        /* border:1px solid whitesmoke; */
    }
+   #upload-progress {
+    visibility: hidden;
+}
+
+#upload-progress.visible {
+    visibility: visible;
+}
 </style>
 <!DOCTYPE html>
 <head>
@@ -65,16 +72,18 @@ background-size:100%;
   </br>
   </br>
   <div class="form-group">
-   <!-- <label for="field1">Photo</label> -->
-   <input type="file" name="photo" id="file"  >
+   <label for="field1">Photo</label> 
+   <input type="file" name="photo" id="file1"  >
   </div>
   <div class="form-group">
     <label for="text">Text</label> 
     <textarea class="form-control" name="text" id="text" placeholder="Введите данные"  value="<?php echo $blogs[0]->text;?>"></textarea>
    </div>
    <div class="form-group">
-    <label for="field1">Video Link</label>
-    <input type="text" class="form-control" name="link" id="field1" placeholder="example: https://www.youtube.com/watch?v=_xeVAjOCNzI"  value="<?php echo $blogs[0]->link;?>">
+    <label for="field1">Video</label>
+   <input type="file" name="video" id="file" >
+   <progress id='upload-progress'></progress>
+   <p id="message"></p>
   </div>
   <button type="submit" name='submit' class="btn btn-primary">Post</button>
 </form>
@@ -82,7 +91,48 @@ background-size:100%;
 </div> 
 
 </div>     
+<script>
+let fileInput, uploadProgress, message;
 
+function init() {
+    fileInput = document.getElementById('file');
+    uploadProgress = document.getElementById('upload-progress');
+    message = document.getElementById('message');
+
+    fileInput.addEventListener('change', function () {
+        let xhr = new XMLHttpRequest(),
+            fd = new FormData();
+
+        fd.append('file', fileInput.files[0]);
+
+        xhr.upload.onloadstart = function (e) {
+            uploadProgress.classList.add('visible');
+            uploadProgress.value = 0;
+            uploadProgress.max = e.total;
+            message.textContent = 'uploading...';
+            fileInput.disabled = true;
+        };
+
+        xhr.upload.onprogress = function (e) {
+            uploadProgress.value = e.loaded;
+            uploadProgress.max = e.total;
+        };
+
+        xhr.upload.onloadend = function (e) {
+            uploadProgress.classList.remove('visible');
+            message.textContent = 'complete!';
+            fileInput.disabled = false;
+        };
+
+       
+
+        xhr.open('POST', 'catch-file.php', true);
+        xhr.send(fd);
+    });
+}
+
+init();
+</script>
  </body>
 
 </html>

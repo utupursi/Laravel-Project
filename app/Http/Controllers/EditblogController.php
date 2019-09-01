@@ -12,11 +12,11 @@ class EditblogController extends Controller
         $header = $request->input('header');
         $category = $request->input('category');
         $photo=$request->file('photo')->store('uploads','public');
+        $video=$request->file('video')->store('uploads','public');
         $text = $request->input('text');
-        $link = $request->input('link');
         $blog_id = $request->input('id');
         $user_id = Auth::user()->id;
-        $data=array('header'=>$header,'category'=>$category,'photo'=>$photo,'text'=>$text,'link'=>$link,'user_id'=>$user_id);
+        $data=array('header'=>$header,'category'=>$category,'photo'=>$photo,'text'=>$text,'link'=>$video,'user_id'=>$user_id);
         DB::table('blogs')->where('blog_id',$blog_id)->update($data);
         return redirect('/');
     }

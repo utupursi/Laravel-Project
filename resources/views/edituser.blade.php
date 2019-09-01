@@ -51,7 +51,9 @@
                         <input type="submit" class="btn btn-primary" value="Save Changes" />
                     </div>
                 </div>
+         
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- <div class="col-lg-4 pull-lg-8 text-xs-center">
                 <img src= id="p" class="m-x-auto img-fluid img-circle" alt="avatar" />
                 <h6 class="m-t-2">Upload a different photo</h6>

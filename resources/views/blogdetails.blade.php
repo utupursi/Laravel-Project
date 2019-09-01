@@ -46,20 +46,18 @@
         <!-- Preview Image -->
         <hr>
      <img  id="img" src="{{asset('/storage/'. $blog[0]->photo)}}">
+
+     <!-- <video><source src="{{asset('/storage/'. $blog[0]->photo)}}" type="video/webm"> -->
+                        </video>
         <!-- Post Content -->
        <div id='text'> <?php echo $blog[0]->text?></div>
-
-<?php if(!empty($blog[0]->link)):?>
-        <iframe id="t" width="710" height="415"src="https://www.youtube.com/embed/<?php echo $blog[0]->link;?>"></iframe>
-        <?php  endif;?>
-     
-
-  
-
-  
-
+       <?php if($blog[0]->link !=''):?>
+       <video width="600" controls >
+  <source src="{{asset('/storage/'. $blog[0]->link)}}" type="video/mp4">
+</video>
+<?php endif;?>
       </div>
-
+ 
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 

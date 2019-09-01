@@ -14,12 +14,12 @@ class BlogController extends Controller
 
     public static function insert(Request $request){
         $photo=$request->file('photo')->store('uploads','public');
+        $video=$request->file('video')->store('uploads','public');
         $header = $request->input('header');
         $category = $request->input('category');
         $text = $request->input('text');
-        $link = $request->input('link');
         $user_id = Auth::user()->id;
-        $data=array('header'=>$header,'category'=>$category,'photo'=>$photo,'text'=>$text,'link'=>$link,'user_id'=>$user_id);
+        $data=array('header'=>$header,'category'=>$category,'photo'=>$photo,'text'=>$text,'link'=>$video,'user_id'=>$user_id);
         DB::table('blogs')->insert($data);
         return redirect('/');
     }

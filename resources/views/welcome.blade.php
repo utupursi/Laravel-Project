@@ -89,7 +89,7 @@
                             @foreach ($blogs as $blog)
                           
                             	<div class="blog_img">
-                            		<img class="img-fluid" id='img' src="{{asset('/storage/'. $blog->photo)}}" alt="">
+                   <img id='img' src="{{asset('/storage/'. $blog->photo)}}">
                             	</div>
                                 
                             	<div class="blog_text">
